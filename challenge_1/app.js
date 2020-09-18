@@ -67,11 +67,23 @@ var checkForWin = (rowInd, colInd) => {
   }
   if (rowStreak === 3 || colStreak === 3 ) {
     alert(`${lastClick} is the winner!!`);
+    return;
   }
-  if(board[1][1] === lastClick) {
+  else if(board[1][1] === lastClick) {
     if ((board[0][0] === lastClick && board[2][2] === lastClick) || (board[2][0] === lastClick && board[0][2] === lastClick)){
       alert(`${lastClick} is the winner!!`)
+      return;
     }
+  } else {
+    for (var i = 0; i < board.length; i++) {
+      for (var j = 0; j < board[i].length; j++) {
+        if (board[i][j] === "") {
+          return;
+        }
+      }
+    }
+    alert(`It's a tie! Rematch!`);
+    clearBoard();
   }
 }
 
