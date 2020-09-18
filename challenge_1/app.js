@@ -5,6 +5,7 @@ var nextClick = "X";
 var lastClick = "";
 function changeValue(id) {
   var square = document.getElementById(id);
+  saveValue(id);
   if(square.innerHTML === "X" || square.innerHTML === "O") {
     // debugger;
     return;
@@ -21,8 +22,28 @@ function changeValue(id) {
   }
   console.log("clicked");
 }
+
+//KEEPING SCORE (use previously declared nextClick value)
+var board = [
+  ["", "", ""],
+  ["", "", ""],
+  ["", "", ""]
+]
+var saveValue = (id) => {
+  //parse id to object
+  id = id.replace('r', '"r"').replace('c', '"c"');
+  //id = id.replace('c', '"c"');
+  var coord = JSON.parse(id);
+  //set value at r equal to rowInd
+  //set value at c to colInd
+  var rowInd = coord.r;
+  var colInd = coord.c;
+  //set board[rowInd][colInd] to lastClick value
+  board[rowInd][colInd] = nextClick;
+  console.log("value saved to board")
+}
 //Row 1/Index 0
-document.getElementById("{r:0, c:0}").addEventListener("click", function() {changeValue("{r:0, c:0}")}, false);
+document.getElementById("{r:0, c:0}").addEventListener("click", () => {changeValue("{r:0, c:0}")}, false);
 document.getElementById("{r:0, c:1}").addEventListener("click", function() {changeValue("{r:0, c:1}")}, false);
 document.getElementById("{r:0, c:2}").addEventListener("click", function() {changeValue("{r:0, c:2}")}, false);
 //Row 2/Index 1
@@ -34,25 +55,8 @@ document.getElementById("{r:2, c:0}").addEventListener("click", function() {chan
 document.getElementById("{r:2, c:1}").addEventListener("click", function() {changeValue("{r:2, c:1}")}, false);
 document.getElementById("{r:2, c:2}").addEventListener("click", function() {changeValue("{r:2, c:2}")}, false);
 
-//KEEPING SCORE (use previously declared lastClick value)
 
-//save values to array
-var board = [
-  ["", "", ""],
-  ["", "", ""],
-  ["", "", ""]
-]
-var saveValue = (id) => {
-  //parse id to object
-  debugger;
-  var coord = JSON.parse(id);
-  //set value at r equal to rowInd
-  //set value at c to colInd
-  var rowInd = coord.r;
-  var colInd = coord.c;
-  //set board[rowInd][colInd] to lastClick value
-  board[rowInd][colInd] = nextClick;
-  console.log("value saved to board")
-}
-var test ='{"r": 0, "c": 0}'
-console.log(saveValue(test));
+
+
+
+
