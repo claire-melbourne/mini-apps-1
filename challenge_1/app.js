@@ -1,10 +1,21 @@
 
 
 console.log("here we are together")
-
+var lastClick = ""
 function changeValue(id) {
   var square = document.getElementById(id);
-  square.innerHTML= "X";
+  if(square.innerHTML === "X" || square.innerHTML === "O") {
+    // debugger;
+    return;
+  } else if (lastClick === "X") {
+    // debugger;
+    square.innerHTML = "O";
+    lastClick = "O"
+  } else {
+    // debugger;
+    square.innerHTML = "X";
+    lastClick = "X"
+  }
   console.log("clicked");
 }
 //Row 1/Index 0
