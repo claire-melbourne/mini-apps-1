@@ -48,6 +48,21 @@ var saveValue = (id, callback) => {
 var checkForWin = (rowInd, colInd) => {
   //debugger;
   //check row
+  var rowStreak = 0;
+  var colStreak = 0
+  for (var i = 0; i < board[rowInd].length; i++) {
+    if (board[rowInd][i] === lastClick) {
+      rowStreak ++;
+    }
+  }
+  for (var j = 0; j < board.length; j++) {
+    if (board[j][colInd] === lastClick) {
+      colStreak ++;
+    }
+  }
+  if (rowStreak === 3 || colStreak === 3 ) {
+    alert(`${lastClick} is the winner!!`);
+  }
   //loop through array at board[rowInd]
     //check to see if all values equal lastClick
   //check column
