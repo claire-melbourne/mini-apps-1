@@ -3,6 +3,10 @@ console.log("here we are together")
 var nextClick = "X";
 var lastClick = "";
 function changeValue(id) {
+  if (lastClick === "win") {
+    alert("click reset to play again");
+    return;
+  }
   var square = document.getElementById(id);
   if(square.innerHTML === "X" || square.innerHTML === "O") {
     // debugger;
@@ -43,6 +47,7 @@ var clearBoard = () => {
     squares[i].style.fontSize = "20px";
     squares[i].style.padding = "30px 0 30px 0";
   }
+  lastClick = "";
   nextClick = "X";
 };
 //KEEPING SCORE (use previously declared nextClick value)
@@ -71,11 +76,13 @@ var checkForWin = (rowInd, colInd) => {
   }
   if (rowStreak === 3 || colStreak === 3 ) {
     alert(`${lastClick} is the winner!!`);
+    lastClick = "win"
     return;
   }
   else if(board[1][1] === lastClick) {
     if ((board[0][0] === lastClick && board[2][2] === lastClick) || (board[2][0] === lastClick && board[0][2] === lastClick)){
       alert(`${lastClick} is the winner!!`)
+      lastClick = "win"
       return;
     }
   } else {
