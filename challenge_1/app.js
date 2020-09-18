@@ -5,7 +5,6 @@ var nextClick = "X";
 var lastClick = "";
 function changeValue(id) {
   var square = document.getElementById(id);
-  saveValue(id);
   if(square.innerHTML === "X" || square.innerHTML === "O") {
     // debugger;
     return;
@@ -13,14 +12,16 @@ function changeValue(id) {
     // debugger;
     square.innerHTML = "O";
     nextClick = "X";
-    var lastClick = "Y";
+    lastClick = "Y";
   } else {
     // debugger;
     square.innerHTML = "X";
-    nextClick = "O"
-    var lastClick = "X";
+    nextClick = "O";
+    lastClick = "X";
   }
   console.log("clicked");
+  //debugger;
+  saveValue(id, checkForWin);
 }
 
 //KEEPING SCORE (use previously declared nextClick value)
@@ -29,7 +30,7 @@ var board = [
   ["", "", ""],
   ["", "", ""]
 ]
-var saveValue = (id) => {
+var saveValue = (id, callback) => {
   //parse id to object
   id = id.replace('r', '"r"').replace('c', '"c"');
   //id = id.replace('c', '"c"');
@@ -39,9 +40,27 @@ var saveValue = (id) => {
   var rowInd = coord.r;
   var colInd = coord.c;
   //set board[rowInd][colInd] to lastClick value
-  board[rowInd][colInd] = nextClick;
+  board[rowInd][colInd] = lastClick;
+  callback(rowInd, colInd);
   console.log("value saved to board")
 }
+
+var checkForWin = (rowInd, colInd) => {
+  //debugger;
+  //check row
+  //loop through array at board[rowInd]
+    //check to see if all values equal lastClick
+  //check column
+  //loop through board
+    //check to see if all values at board[i][colInd] equal last clicked
+  //check diags
+    if(board[1][1] === lastClick) {
+      if ((board[0][0] === lastClick && board[2][2] === lastClick) || (board[2][0] === lastClick && board[0][2] === lastClick)){
+        alert(`${lastClick} is the winner!!`)
+      }
+    }
+}
+
 //Row 1/Index 0
 document.getElementById("{r:0, c:0}").addEventListener("click", () => {changeValue("{r:0, c:0}")}, false);
 document.getElementById("{r:0, c:1}").addEventListener("click", function() {changeValue("{r:0, c:1}")}, false);
