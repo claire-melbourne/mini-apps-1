@@ -18,8 +18,9 @@ function changeValue(id) {
     nextClick = "O";
     lastClick = "X";
   }
+  square.style.fontSize = "50px";
+  square.style.padding = "10px 19px";
   console.log("clicked");
-  //debugger;
   saveValue(id, checkForWin);
 }
 //BOARD
@@ -38,8 +39,11 @@ var clearBoard = () => {
   var squares = document.getElementsByClassName("gridItem");
   for (var i = 0; i < squares.length; i++){
     console.log(squares[i].innerHTML);
-    squares[i].innerHTML = "am I your next move?"
+    squares[i].innerHTML = "pick me"
+    squares[i].style.fontSize = "20px";
+    squares[i].style.padding = "30px 0 30px 0";
   }
+  nextClick = "X";
 };
 //KEEPING SCORE (use previously declared nextClick value)
 var saveValue = (id, callback) => {
