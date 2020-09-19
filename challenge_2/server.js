@@ -17,26 +17,13 @@ app.post('/form', (req, res) => {
 //format function
 const formatCSV = (jsonObj) => {
   var object = (jsonObj.jsonSub);
-  var columnNames = {};
-  var findKeys = function(obj) {
-    for (var key in obj) {
-      if (key === "children") {
-        for (var i = 0; i < obj.children.length; i++) {
-          findKeys(obj.children[i]);
-        }
-      } else {
-        columnNames[key] = true;
-      }
-    }
-  }
-  findKeys(object);
-  var headers =
- };
+  console.log(object);
+
+}
   //iterate over keys
     //add key to new set
     //if key value is an array iterate over array performing iteration over keys on each element
   //var object = JSON.parse(string)
   //console.log(object, "<----new object")
-}
 
 app.listen(PORT, () => {console.log(`listening at port ${PORT}`)});
