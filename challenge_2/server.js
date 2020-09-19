@@ -2,17 +2,41 @@ const express = require('express');
 const app = express();
 var PORT = 5000;
 app.use(express.json());
+app.use(express.urlencoded());
 app.use(express.static('client'))
-// app.get('/', (req, res) => {
-//   res.end('Hello World')
-// })
-//POST request
+app.get('/form', (req, res) => {
+  res.end('Hello World')
+})
 app.post('/form', (req, res) => {
-  let string = JSON.stringify(req.body);
-  console.log(string);
-  res.send(string);
+  let object = req.body;
+  formatCSV(object)
+  //console.log(object);
+  res.send(object);
 })
 
 //format function
+const formatCSV = (jsonObj) => {
+  var object = (jsonObj.jsonSub);
+  var columnNames = {};
+  var findKeys = function(obj) {
+    for (var key in obj) {
+      if (key === "children") {
+        for (var i = 0; i < obj.children.length; i++) {
+          findKeys(obj.children[i]);
+        }
+      } else {
+        columnNames[key] = true;
+      }
+    }
+  }
+  findKeys(object);
+  var headers =
+ };
+  //iterate over keys
+    //add key to new set
+    //if key value is an array iterate over array performing iteration over keys on each element
+  //var object = JSON.parse(string)
+  //console.log(object, "<----new object")
+}
 
 app.listen(PORT, () => {console.log(`listening at port ${PORT}`)});
