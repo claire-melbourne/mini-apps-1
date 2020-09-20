@@ -1,5 +1,5 @@
 const express = require('express');
-//const fs = require('fs');
+const fs = require('fs');
 const path = require('path');
 const app = express();
 
@@ -11,11 +11,10 @@ app.get('/form', (req, res) => {
   res.end('Hello World')
 })
 app.post('/form', (req, res) => {
-  //var object = (JSON.parse(req.body.jsonSub))
-  //console.log(object)
-  //var csvFormatted = formatCSV(object);
-  //console.log(csvFormatted);
-  //res.send(csvFormatted);
+  var object = (JSON.parse(req.body.jsonSub))
+  var csvFormatted = formatCSV(object);
+  console.log(csvFormatted);
+  fileWriter('bye');
   res.sendFile('samples/csv_report.csv', { root: __dirname }, function (err) {
     if (err) {
       console.log(err);
@@ -32,6 +31,20 @@ const formatCSV = (object) => {
   var fullDoc = (headers.join(',') + '\n' + linesArray.join('\n'))
   return fullDoc
 }
+var csvFile = path.join(__dirname, 'my_csv.csv');
+const fileWriter = (content, callback) => {
+  fs.writeFile(csvFile, content, (err) => {
+    if (err) {
+      throw err;
+    }
+    console.log('file saved');
+    callback(csvFile)
+  })
+}
+
+fileWriter('hello', (file) => {
+  console.log(file);
+})
 
 
 var findKeys = function(object) {
