@@ -14,7 +14,9 @@ app.post('/form', (req, res) => {
   var object = (JSON.parse(req.body.jsonSub))
   var csvFormatted = formatCSV(object);
   console.log(csvFormatted);
-  fileWriter('bye');
+  fileWriter(csvFormatted, (file) => {
+    console.log(file);
+  })
   res.sendFile('samples/csv_report.csv', { root: __dirname }, function (err) {
     if (err) {
       console.log(err);
@@ -42,9 +44,7 @@ const fileWriter = (content, callback) => {
   })
 }
 
-fileWriter('hello', (file) => {
-  console.log(file);
-})
+
 
 
 var findKeys = function(object) {
