@@ -1,5 +1,8 @@
 const express = require('express');
+//const fs = require('fs');
+const path = require('path');
 const app = express();
+
 var PORT = 5000;
 app.use(express.json());
 app.use(express.urlencoded());
@@ -8,23 +11,26 @@ app.get('/form', (req, res) => {
   res.end('Hello World')
 })
 app.post('/form', (req, res) => {
-  let object = req.body;
-  formatCSV(object)
-  //console.log(object);
-  res.send(object);
+  //var object = (JSON.parse(req.body.jsonSub))
+  //console.log(object)
+  //var csvFormatted = formatCSV(object);
+  //console.log(csvFormatted);
+  //res.send(csvFormatted);
+  res.sendFile('samples/csv_report.csv', { root: __dirname }, function (err) {
+    if (err) {
+      console.log(err);
+    } else {
+      console.log('Sent:', 'samples/csv_report.csv')
+    }
+  })
 })
 
 //format function
-const formatCSV = (jsonObj) => {
-  var object = (JSON.parse(jsonObj.jsonSub));
-  console.log(object);
+const formatCSV = (object) => {
   var headers = findKeys(object);
   var linesArray = setValues(headers, object);
   var fullDoc = (headers.join(',') + '\n' + linesArray.join('\n'))
-  //var fullDoc = headerString + '\n' +
-  console.log('result of fulldoc \n', fullDoc);
-  //var linesArray = setValues(findKeys(object), object);
-  //console.log(linesArray);
+  return fullDoc
 }
 
 
